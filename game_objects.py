@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 
-
 CELL_STATES = {
     'empty': 0,
     'cross': 1,

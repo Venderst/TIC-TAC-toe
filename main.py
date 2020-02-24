@@ -1,3 +1,4 @@
+import os
 from copy import deepcopy
 
 from game_objects import CELL_STATES, GAME_RESULTS
@@ -5,18 +6,24 @@ from view import View
 from world_updater import validate_transition, check_if_winning_field_state, check_if_draw_field_state
 
 from models.human_model import HumanModel
+from models.minimax_model import MiniMaxModel
+
+MODELS_DATA_DIR = 'models_data'
+
+if not os.path.exists(MODELS_DATA_DIR):
+    os.mkdir(MODELS_DATA_DIR)
 
 FIELD_WIDTH = 3
 FIELD_HEIGHT = 3
 
 view = View(True)
 
-models = [HumanModel(), HumanModel()]
+models = [MiniMaxModel(use_cached_actions=False), HumanModel()]
 models[0].set_state(CELL_STATES['cross'])
 models[1].set_state(CELL_STATES['zero'])
 
-models[0].load()
-models[1].load()
+models[0].load(MODELS_DATA_DIR)
+models[1].load(MODELS_DATA_DIR)
 
 replays_num = -1
 replay_index = 0
@@ -80,5 +87,5 @@ while (replay_index < replays_num and replays_num > 0) or replays_num < 1 and no
     if user_answer.lower() != 'y':
         is_game_over = True
 
-models[0].save()
-models[1].save()
+models[0].save(MODELS_DATA_DIR)
+models[1].save(MODELS_DATA_DIR)

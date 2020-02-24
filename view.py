@@ -10,7 +10,7 @@ def clear_screen():
         'linux1': 'clear',
         'linux2': 'clear',
         'darwin': 'clear',
-        'win32':  'cls'
+        'win32': 'cls'
     }
     os.system(clear_command_names.get(sys.platform, 'clear'))
 
